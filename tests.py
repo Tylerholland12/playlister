@@ -62,14 +62,6 @@ class PlaylistsTests(TestCase):
         self.assertEqual(result.status, '200 OK')
         self.assertIn(b'Cat Videos', result.data)
 
-    @mock.patch('pymongo.collection.Collection.insert_one')
-    def test_submit_playlist(self, mock_insert):
-        """Test submitting a new playlist."""
-        result = self.client.post('/playlists', data=sample_form_data)
-
-        # After submitting, should redirect to that playlist's page
-        self.assertEqual(result.status, '302 FOUND')
-        mock_insert.assert_called_with(sample_playlist)
 
     @mock.patch('pymongo.collection.Collection.insert_one')
     def test_submit_playlist(self, mock_insert):
